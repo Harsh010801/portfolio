@@ -12,5 +12,28 @@
     "links": {
       "view": "https://drive.google.com/drive/folders/1bNI4tuftdord08tXJQEcYSGkd31kYGvp?usp=sharing"
     }
+  },
+  {
+    "name": "SOCA Feature",
+    "image": "soca",
+    "links": {
+      "view": "#"
+    }
+  },
+  {
+    "name": "Credit-Swarm",
+    "desc": "AI-optimized credit analysis with 18 adversarial agents — automate underwriting and score SMEs with human-grade decision-making.",
+    "image": "creditswarm",
+    "links": {
+      "view": "#"
+    }
+  },
+  {
+    "name": "Aarohan",
+    "desc": "Transform legacy healthcare data into NHCX-compliant FHIR bundles — automatically. From scanned PDFs to signed bundles in under 500ms.",
+    "image": "aarohan",
+    "links": {
+      "view": "#"
+    }
   }
 ]

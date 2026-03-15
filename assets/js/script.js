@@ -1,5 +1,56 @@
 $(document).ready(function () {
 
+    // ===== THEME TOGGLE =====
+    const themeToggle = document.getElementById('theme-toggle');
+    const htmlEl = document.documentElement;
+
+    // Apply saved theme on load
+    const savedTheme = localStorage.getItem('portfolio-theme');
+    if (savedTheme === 'light') {
+        htmlEl.setAttribute('data-theme', 'light');
+        updateParticlesColor('#000000');
+    }
+
+    if (themeToggle) {
+        themeToggle.addEventListener('click', function () {
+            const isLight = htmlEl.getAttribute('data-theme') === 'light';
+            if (isLight) {
+                htmlEl.removeAttribute('data-theme');
+                localStorage.setItem('portfolio-theme', 'dark');
+                updateParticlesColor('#ffffff');
+            } else {
+                htmlEl.setAttribute('data-theme', 'light');
+                localStorage.setItem('portfolio-theme', 'light');
+                updateParticlesColor('#000000');
+            }
+        });
+    }
+
+    function updateParticlesColor(color) {
+        const pJS = window.pJSDom;
+        if (pJS && pJS.length > 0) {
+            const particles = pJS[0].pJS;
+            particles.particles.color.value = color;
+            particles.particles.line_linked.color = color;
+            particles.particles.shape.stroke.color = color;
+            // Update existing particles
+            particles.particles.array.forEach(function (p) {
+                p.color.value = color;
+                p.color.rgb = hexToRgb(color);
+            });
+            particles.particles.line_linked.color_rgb_line = hexToRgb(color);
+        }
+    }
+
+    function hexToRgb(hex) {
+        hex = hex.replace('#', '');
+        return {
+            r: parseInt(hex.substring(0, 2), 16),
+            g: parseInt(hex.substring(2, 4), 16),
+            b: parseInt(hex.substring(4, 6), 16)
+        };
+    }
+
     $('#menu').click(function () {
         $(this).toggleClass('fa-times');
         $('.navbar').toggleClass('nav-toggle');
@@ -116,10 +167,10 @@ function showProjects(projects) {
         <h3>${project.name}</h3>
         </div>
         <div class="desc">
-          <p>${project.desc}</p>
+          <p>${project.desc || ''}</p>
           <div class="btns">
             <a href="${project.links.view}" class="btn" target="_blank"><i class="fas fa-eye"></i> View</a>
-            <a href="${project.links.code}" class="btn" target="_blank">Code <i class="fas fa-code"></i></a>
+            ${project.links.code ? `<a href="${project.links.code}" class="btn" target="_blank">Code <i class="fas fa-code"></i></a>` : ''}
           </div>
         </div>
       </div>
